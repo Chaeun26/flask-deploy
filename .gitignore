@@ -16,3 +16,4 @@
 # Ignore Python cache & logs
 __pycache__/
 *.log
+
