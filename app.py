@@ -8,7 +8,7 @@ app = Flask(__name__)
 elmo = hub.KerasLayer("https://tfhub.dev/google/elmo/3", trainable=False)
 
 def elmo_embedding(x):
-    x = tf.reshape(x, [-1])  # Ensure input is a 1D tensor
+    x = tf.reshape(x, [-1])  
     return elmo(x)
 
 # Load the .h5 model with the custom ELMo embedding function
@@ -17,12 +17,11 @@ model = tf.keras.models.load_model("elmo_model.h5", custom_objects={"elmo_embedd
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
-    input_text = [data["text"]]  # Convert to list format
+    input_text = [data["text"]]
     input_tensor = tf.convert_to_tensor(input_text, dtype=tf.string)
     prediction = model.predict(input_tensor)[0][0]
 
-    # Format response
-    result = round(float(prediction), 4)  # Round for better readability
+    result = round(float(prediction), 4)  
     return jsonify({"prediction": result, "confidence": f"{result * 100:.2f}%"})
 
 
