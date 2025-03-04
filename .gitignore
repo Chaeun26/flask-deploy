@@ -16,6 +16,3 @@
 # Ignore Python cache & logs
 __pycache__/
 *.log
-
-# Ignore model files (optional)
-elmo_model.h5
